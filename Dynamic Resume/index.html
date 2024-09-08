@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dynamic Resume</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="form-container" id="formContainer">
+      <h1 class="formHeading">Enter Your Resume Information</h1>
+      <form id="form">
+        <div class="required">
+          <label for="fullName">Full Name</label>
+          <input type="text" required id="fullName" />
+        </div>
+        <div class="required">
+          <label for="email">Email</label>
+          <input type="email" required id="email" />
+        </div>
+        <div class="required">
+          <label for="phoneNumber">Phone Number</label>
+          <input type="text" required id="phoneNumber" />
+        </div>
+        <div class="required">
+          <label for="skills">Skills (Separate Each Skill by comma)</label>
+          <input type="text" required id="FormSkills" />
+        </div>
+        <div class="required">
+          <label for="summaryInput">Professional Summary</label>
+          <textarea id="summaryInput" required></textarea>
+        </div>
+        <div class="required">
+          <label for="educationInput">Education</label>
+          <textarea id="educationInput" required></textarea>
+        </div>
+        <div class="required">
+          <label for="experienceInput">Work Experience</label>
+          <textarea id="experienceInput" required></textarea>
+        </div>
+        <button id="GenerateResume" type="submit">Generate Resume</button>
+      </form>
+    </div>
+
+    <div class="resume-container" hidden id="resumeContainer">
+      <section id="personal-info">
+        <h1 id="displayName" contenteditable="true">Your Name</h1>
+        <p>
+          Email:
+          <span id="displayEmail" contenteditable="true"
+            >your.email@example.com</span
+          >
+        </p>
+        <p>
+          Phone:
+          <span id="displayPhone" contenteditable="true">+123456789</span>
+        </p>
+      </section>
+
+      <div>
+        <section id="summary">
+          <h2>Professional Summary</h2>
+          <p id="displaySummary" contenteditable="true">
+            Summary will appear here.
+          </p>
+        </section>
+        <button id="toggle-summary">Summary</button>
+      </div>
+
+      <div>
+        <section id="education">
+          <h2>Education</h2>
+          <p id="displayEducation" contenteditable="true">
+            Education details will appear here.
+          </p>
+        </section>
+      </div>
+
+      <div>
+        <section id="skills">
+          <h2>Skills</h2>
+          <ul id="displaySkills">
+            <li>Skill 1</li>
+            <li>Skill 2</li>
+          </ul>
+        </section>
+        <button id="toggle-skills">Skills</button>
+      </div>
+
+      <div>
+        <section id="work-experience">
+          <h2>Work Experience</h2>
+          <p id="displayExperience" contenteditable="true">
+            Work experience will appear here.
+          </p>
+        </section>
+        <button id="toggle-experience">Experience</button>
+      </div>
+      <button id="printResume">Download Resume</button>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
