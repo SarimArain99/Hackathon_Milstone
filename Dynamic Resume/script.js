@@ -19,8 +19,10 @@ form.addEventListener("submit", (event) => {
         .value;
     const email = document.getElementById("email").value;
     const phoneNumber = document.getElementById("phoneNumber").value;
-    const FormSkills = document.getElementById("FormSkills").value;
-    const summary = document.getElementById("summaryInput").value;
+    const FormSkills = document.getElementById("FormSkills")
+        .value;
+    const summary = document.getElementById("summaryInput")
+        .value;
     const education = document.getElementById("educationInput").value;
     const experience = document.getElementById("experienceInput").value;
     displayName.textContent = fullName;
@@ -36,9 +38,9 @@ form.addEventListener("submit", (event) => {
         li.textContent = skill.trim();
         displaySkills.appendChild(li);
     });
-    const userName = fullName.trim().replace(" ", "-").toLowerCase();
-    const newUrl = `${window.location.origin}${window.location.pathname}?resume-of-${userName}`;
-    window.history.pushState({ path: newUrl }, "", newUrl);
+    const userName = fullName.trim().toLowerCase().replace(" ", "_");
+    const newUrl = `${window.location.origin}${window.location.pathname}resume_of_${userName}`;
+    window.history.pushState(null, "", newUrl);
     formContainer.style.display = "none";
     resumeContainer.removeAttribute("hidden");
 });
@@ -60,3 +62,14 @@ experienceButton.addEventListener("click", () => {
 printButton.addEventListener("click", () => {
     window.print();
 });
+function copyLink() {
+    const url = window.location.href;
+    navigator.clipboard
+        .writeText(url)
+        .then(() => {
+        alert("Link copied to clipboard!");
+    })
+        .catch((error) => {
+        console.error("Failed to copy link:", error);
+    });
+}

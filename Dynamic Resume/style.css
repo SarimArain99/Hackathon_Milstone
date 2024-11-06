@@ -110,7 +110,7 @@ h2::after {
   content: "";
   width: 50px;
   height: 4px;
-  background-color: #2980b9;
+  background: linear-gradient(135deg, #6dd5ed, #2980b9);
   display: block;
   position: absolute;
   bottom: -8px;
@@ -137,7 +137,7 @@ section {
 }
 
 .skills-list li {
-  background: linear-gradient(135deg, #3498db, #2980b9);
+  background: linear-gradient(#3498db, #2980b9);
   color: #fff;
   display: inline-block;
   margin-right: 10px;
