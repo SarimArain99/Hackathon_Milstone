@@ -1,96 +1,136 @@
 const form = document.getElementById("form") as HTMLFormElement;
 const formContainer = document.getElementById("formContainer") as HTMLElement;
-const resumeContainer = document.getElementById(
-  "resumeContainer"
-) as HTMLElement;
-
+const resumeContainer = document.getElementById("resumeContainer") as HTMLElement;
 const displayName = document.getElementById("displayName") as HTMLElement;
 const displayEmail = document.getElementById("displayEmail") as HTMLElement;
 const displayPhone = document.getElementById("displayPhone") as HTMLElement;
 const displaySummary = document.getElementById("displaySummary") as HTMLElement;
-const displayEducation = document.getElementById(
-  "displayEducation"
-) as HTMLElement;
+const displayEducation = document.getElementById("displayEducation") as HTMLElement;
 const displaySkills = document.getElementById("displaySkills") as HTMLElement;
-const displayExperience = document.getElementById(
-  "displayExperience"
-) as HTMLElement;
-
-const summaryButton = document.getElementById(
-  "toggle-summary"
-) as HTMLButtonElement;
-const skillsButton = document.getElementById(
-  "toggle-skills"
-) as HTMLButtonElement;
-const experienceButton = document.getElementById(
-  "toggle-experience"
-) as HTMLButtonElement;
-
+const displayExperience = document.getElementById("displayExperience") as HTMLElement;
+const summaryButton = document.getElementById("toggle-summary") as HTMLButtonElement;
+const skillsButton = document.getElementById("toggle-skills") as HTMLButtonElement;
+const experienceButton = document.getElementById("toggle-experience") as HTMLButtonElement;
 const printButton = document.getElementById("printResume") as HTMLButtonElement;
+const shareButton = document.getElementById("shareResume") as HTMLButtonElement;
 
-form.addEventListener("submit", (event) => {
-  event.preventDefault();
+interface ResumeData {
+  fullName: string;
+  email: string;
+  phoneNumber: string;
+  skills: string[];
+  summary: string;
+  education: string;
+  experience: string;
+}
 
-  const fullName = (document.getElementById("fullName") as HTMLInputElement)
-    .value;
-  const email = (document.getElementById("email") as HTMLInputElement).value;
-  const phoneNumber = (
-    document.getElementById("phoneNumber") as HTMLInputElement
-  ).value;
-  const FormSkills = (document.getElementById("FormSkills") as HTMLInputElement)
-    .value;
-  const summary = (document.getElementById("summaryInput") as HTMLInputElement)
-    .value;
-  const education = (
-    document.getElementById("educationInput") as HTMLInputElement
-  ).value;
-  const experience = (
-    document.getElementById("experienceInput") as HTMLInputElement
-  ).value;
-
-  displayName.textContent = fullName;
-  displayEmail.textContent = email;
-  displayPhone.textContent = phoneNumber;
-  displaySummary.textContent = summary;
-  displayEducation.textContent = education;
-  displayExperience.textContent = experience;
+const displayResumeData = (data: ResumeData) => {
+  displayName.textContent = data.fullName;
+  displayEmail.textContent = data.email;
+  displayPhone.textContent = data.phoneNumber;
+  displaySummary.textContent = data.summary;
+  displayEducation.textContent = data.education;
+  displayExperience.textContent = data.experience;
   displaySkills.innerHTML = "";
-  const skillsArray = FormSkills.split(",");
-  skillsArray.forEach((skill) => {
+  data.skills.forEach((skill) => {
     const li = document.createElement("li");
     li.textContent = skill.trim();
     displaySkills.appendChild(li);
   });
+};
 
-  const userName = fullName.trim().toLowerCase().replace(" ", "_");
-  const newUrl = `${window.location.origin}${window.location.pathname}resume_of_${userName}`;
-  window.history.pushState(null, "", newUrl);
+const saveResumeToLocalStorage = (data: ResumeData) => {
+  const userName = data.fullName.trim().toLowerCase().replace(/\s+/g, "_");
+  localStorage.setItem(`resume_${userName}`, JSON.stringify(data));
+  return userName;
+};
+
+const loadResumeFromLocalStorage = (userName: string): ResumeData | null => {
+  const data = localStorage.getItem(`resume_${userName}`);
+  return data ? JSON.parse(data) : null;
+};
+
+const handleHashChange = () => {
+  const hash = window.location.hash;
+  const match = hash.match(/^#resume_of_(.+)$/);
+  
+  if (match) {
+    const userName = match[1];
+    const resumeData = loadResumeFromLocalStorage(userName);
+    if (resumeData) {
+      formContainer.style.display = "none";
+      resumeContainer.removeAttribute("hidden");
+      displayResumeData(resumeData);
+    } else {
+      formContainer.style.display = "block";
+      resumeContainer.setAttribute("hidden", "");
+    }
+  } else {
+    formContainer.style.display = "block";
+    resumeContainer.setAttribute("hidden", "");
+  }
+};
+
+window.addEventListener("hashchange", handleHashChange);
+window.addEventListener("load", handleHashChange);
+
+form.addEventListener("submit", (event) => {
+  event.preventDefault();
+
+  const resumeData: ResumeData = {
+    fullName: (document.getElementById("fullName") as HTMLInputElement).value,
+    email: (document.getElementById("email") as HTMLInputElement).value,
+    phoneNumber: (document.getElementById("phoneNumber") as HTMLInputElement).value,
+    skills: (document.getElementById("FormSkills") as HTMLInputElement).value.split(","),
+    summary: (document.getElementById("summaryInput") as HTMLInputElement).value,
+    education: (document.getElementById("educationInput") as HTMLInputElement).value,
+    experience: (document.getElementById("experienceInput") as HTMLInputElement).value
+  };
+
+  const userName = saveResumeToLocalStorage(resumeData);
+  window.location.hash = `resume_of_${userName}`;
 
   formContainer.style.display = "none";
   resumeContainer.removeAttribute("hidden");
+  displayResumeData(resumeData);
 });
 
 skillsButton.addEventListener("click", () => {
   const skillsSection = document.getElementById("skills") as HTMLElement;
-  skillsSection.style.display =
-    skillsSection.style.display === "none" ? "block" : "none";
+  skillsSection.style.display = skillsSection.style.display === "none" ? "block" : "none";
 });
 
 summaryButton.addEventListener("click", () => {
   const summarySection = document.getElementById("summary") as HTMLElement;
-  summarySection.style.display =
-    summarySection.style.display === "none" ? "block" : "none";
+  summarySection.style.display = summarySection.style.display === "none" ? "block" : "none";
 });
 
 experienceButton.addEventListener("click", () => {
-  const experienceSection = document.getElementById(
-    "work-experience"
-  ) as HTMLElement;
-  experienceSection.style.display =
-    experienceSection.style.display === "none" ? "block" : "none";
+  const experienceSection = document.getElementById("work-experience") as HTMLElement;
+  experienceSection.style.display = experienceSection.style.display === "none" ? "block" : "none";
 });
 
 printButton.addEventListener("click", () => {
   window.print();
 });
 
+shareButton.addEventListener("click", () => {
+  const hash = window.location.hash;
+  const match = hash.match(/^#resume_of_(.+)$/);
+
+  if (match) {
+    const userName = match[1];
+    const resumeUrl = `${window.location.origin}${window.location.pathname}#resume_of_${userName}`;
+    
+    navigator.clipboard
+      .writeText(resumeUrl)
+      .then(() => {
+        alert("Resume link copied to clipboard!");
+      })
+      .catch(() => {
+        alert("Failed to copy the link. Please try again.");
+      });
+  } else {
+    alert("No resume data available to share.");
+  }
+});

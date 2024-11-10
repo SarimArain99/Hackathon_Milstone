@@ -70,13 +70,7 @@ textarea:focus {
 
 .resume-container {
   background-color: #fff;
-  padding: 50px;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease;
-}
-
-.resume-container:hover {
-  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15);
+  padding: 30px;
 }
 
 header {
@@ -165,6 +159,7 @@ button {
   font-size: 1.1rem;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
+  outline: none;
 }
 
 button:hover {
