@@ -1,12 +1,17 @@
+/* Google Fonts */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Merriweather:wght@300;400;700&family=Roboto:wght@400;500;700&family=Playfair+Display:wght@400;700&display=swap");
+
 * {
   padding: 0;
   margin: 0;
+  box-sizing: border-box;
 }
 
 body {
   font-family: "Poppins", sans-serif;
   background-color: #f0f4f8;
   color: #333;
+  line-height: 1.6;
 }
 
 .formHeading {
@@ -14,6 +19,9 @@ body {
   font-size: 2.5rem;
   color: #34495e;
   margin-bottom: 20px;
+  text-transform: capitalize;
+  letter-spacing: 1px;
+  font-family: "Playfair Display", serif;
 }
 
 .form-container {
@@ -30,6 +38,9 @@ label {
   margin-bottom: 10px;
   font-weight: bold;
   color: #2c3e50;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-family: "Roboto", sans-serif;
 }
 
 input[type="text"],
@@ -38,18 +49,18 @@ textarea {
   width: 100%;
   padding: 15px;
   border: 1px solid #e0e6ed;
-  border-radius: 10px;
   font-family: "Poppins", sans-serif;
   font-size: 1rem;
   background-color: #f8f9fb;
   transition: all 0.2s ease;
+  outline: none;
 }
 
 input[type="text"]:focus,
 input[type="email"]:focus,
 textarea:focus {
   border-color: #2980b9;
-  box-shadow: 0 0 5px rgba(41, 128, 185, 0.3);
+  box-shadow: 0 0 8px rgba(41, 128, 185, 0.3);
 }
 
 #GenerateResume {
@@ -60,12 +71,16 @@ textarea:focus {
   border-radius: 50px;
   cursor: pointer;
   font-size: 1.1rem;
-  transition: all 0.3s ease;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-family: "Merriweather", serif;
+  transition: all 0.4s ease;
 }
 
 #GenerateResume:hover {
   background: linear-gradient(150deg, #2980b9, #6dd5ed);
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  transform: translateY(-2px);
 }
 
 .resume-container {
@@ -91,6 +106,8 @@ h1 {
   margin: 0;
   font-size: 2.5rem;
   color: #2c3e50;
+  font-weight: bold;
+  font-family: "Playfair Display", serif;
 }
 
 h2 {
@@ -98,6 +115,10 @@ h2 {
   margin-bottom: 10px;
   font-size: 1.6rem;
   position: relative;
+  text-transform: capitalize;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+  font-family: "Poppins", sans-serif;
 }
 
 h2::after {
@@ -114,6 +135,7 @@ h2::after {
 p {
   line-height: 1.8;
   color: #666;
+  font-family: "Roboto", sans-serif;
 }
 
 section {
@@ -139,8 +161,10 @@ section {
   padding: 8px 20px;
   border-radius: 30px;
   font-size: 0.95rem;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+  font-family: "Poppins", sans-serif;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .skills-list li:hover {
@@ -157,14 +181,18 @@ button {
   cursor: pointer;
   border-radius: 50px;
   font-size: 1.1rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-family: "Merriweather", serif;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease;
+  transition: all 0.4s ease;
   outline: none;
 }
 
 button:hover {
   background: linear-gradient(135deg, #2980b9, #6dd5ed);
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  transform: translateY(-2px);
 }
 
 @media print {
